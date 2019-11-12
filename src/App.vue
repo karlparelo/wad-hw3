@@ -6,16 +6,16 @@
         <section id="container">
             <section id="main">
                 <div class="content">
-                    <div id="profile-container" class="tab active">
+                    <div id="profile-container" class="tab active" v-if="courseOrTable">
                         <Profile :profilee="profile"/>
                     </div>
-                    <div id="courses-container" class="tab">
+                    <div id="courses-container" class="tab" v-else>
                         <Courses :courses="courses"/>
                     </div>
                 </div>
                 <div class="controls">
-                    <button @click="profile.close" id="profile-button" class="pill active">Profile</button>
-                    <button  id="courses-button" class="pill" @click="courses.open = true">Courses </button>
+                    <button id="profile-button" ref="profileButton" class="pill" v-bind:class="{ 'pill active': courseOrTable}" v-on:click="courseOrTable = true">Profile</button>
+                    <button  id="courses-button" ref="courseButton" class="pill" v-bind:class="{ 'pill active': !courseOrTable}" v-on:click="courseOrTable = false">Courses</button>
                 </div>
             </section>
         </section>
@@ -38,7 +38,23 @@
     import Courses from "./components/Courses";
     export default {
         name: 'app',
-        components: {Courses, Profile}
+        data: function() {
+            return {
+                courseOrTable: true,
+                gpa: 0
+                }
+            },
+        components: {Courses, Profile},
+        methods: {
+            //openCourses: function (value) {
+            //    this.courseOrTable = value
+            //    //this.$refs.profileButton.class = "pill active"
+            //    //this.$refs.courseButton.class = "pill active"
+            //    },
+            //openPlus: function (value) {
+            //    
+            //    }
+            }
     }
 </script>
 

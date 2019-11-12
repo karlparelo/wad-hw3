@@ -1,6 +1,6 @@
 <template>
-    <div v-if="open">
-        <div id="profile">
+    <div>
+        <div id="profile" @mouseover = "recalculateGPA">
             <div class="avatar">
                 <img src="./assets/me.png" id="picture" alt="My picture">
             </div>
@@ -12,7 +12,7 @@
                 </ul>
             </div>
             <div id="gpa">
-                <strong>2.75</strong>
+                <strong>{{ gpa }}</strong>
             </div>
             <div class="clear-fix"></div>
         </div>
@@ -20,22 +20,23 @@
 </template>
 
 <script>
+
     export default {
         name: "Profile",
         data: () => {
             return {
-                open: true
-            }
-        },
+                gpa : 0
+                }
+            },
         methods: {
-            close: function () {
-                this.open = false
-            }
-        },
+            recalculateGPA: function () {
+                this.gpa = this.$GetGPA
+                }
+            },
         props: {
             add: Function
+            }
         }
-    }
 </script>
 
 <style scoped>
